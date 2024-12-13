@@ -20,7 +20,7 @@ class Score {
   }
 
   getItem(itemId) {
-    this.score += 0;
+    this.score += 100;
   }
 
   reset() {
