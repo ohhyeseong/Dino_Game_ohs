@@ -32,10 +32,10 @@ export const gameEnd = (uuid, payload) => {
       // 다음 스테이지의 시작 시간을 현재 스테이지의 종료 시간으로 사용
       stageEndTime = stages[index + 1].timestamp;
     }
-    const stageDuration = (stageEndTime - stage.timestamp) / 500; // 스테이지 지속 시간 (초 단위)
+    const stageDuration = (stageEndTime - stage.timestamp) / 1000; // 스테이지 지속 시간 (초 단위)
 
     // 점수 증가 비율 설정 ( 예: 첫 번째 스테이지는 1점, 두 번째는 2점...)
-    const scoreMultiplier = index + 10; // 인덱스에 따라 점수 배율 증가
+    const scoreMultiplier = index + 1; // 인덱스에 따라 점수 배율 증가
     totalScore += stageDuration * scoreMultiplier; // 스테이지 지속 시간에 배율을 곱하여 점수 계산산
   });
 

@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 // 서버를 작동하는 로직
 server.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
-
+  // 이 곳에서 파일 읽음
   try {
     const assets = await loadGameAssets();
     console.log(assets);

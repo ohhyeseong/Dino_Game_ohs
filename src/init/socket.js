@@ -6,7 +6,7 @@ const initSocket = (server) => {
   const io = new SocketIO();
   // attach란 메서드를 사용해서 서버에 연결을 해준다.
   io.attach(server);
-
+  // 여기서 io객체를 넘겨주고 호출을 해줌.
   registerHandler(io);
 };
 
