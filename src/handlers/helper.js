@@ -3,13 +3,14 @@ import { CLIENT_VERSION } from '../constants.js';
 import handlerMappings from './handlerMapping.js';
 import { createStage } from '../models/stage.model.js';
 
-export const handleConnection = (socket, userUUID) => {
-  console.log(`New user connected: ${userUUID} with socket ID ${socket.id}`);
+export const handleConnection = (socket, uuid) => {
+  console.log(`New user connected!: ${uuid} with socket ID ${socket.id}`);
   console.log('Current users:', getUsers());
 
-  createStage(userUUID);
+  // 스테이지 빈 배열 생성
+  createStage(uuid);
 
-  socket.emit('connection', { uuid: userUUID });
+  socket.emit('connection', { uuid });
 };
 
 export const handleDisconnect = (socket, uuid) => {
@@ -31,6 +32,7 @@ export const handleEvent = (io, socket, data) => {
   }
 
   const response = handler(data.userId, data.payload);
+  // 유저 모두한테 보내는 함수 ( 서버와 연결된 그 소켓 객체 자체에 붙어있는 emit() 메서드를 사용해서 처리를 해주면 된다.)
   if (response.broadcast) {
     io.emit('response', 'broadcast');
     return;

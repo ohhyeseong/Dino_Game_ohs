@@ -1,4 +1,5 @@
-import { sendEvent } from './socet.js';
+import { sendEvent } from './socket.js';
+
 class Score {
   score = 0;
   HIGH_SCORE_KEY = 'highScore';
@@ -20,7 +21,8 @@ class Score {
   }
 
   getItem(itemId) {
-    this.score;
+    // 아이템 획득시 점수 변화
+    this.score += 0;
   }
 
   reset() {

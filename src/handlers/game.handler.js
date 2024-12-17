@@ -1,10 +1,8 @@
 import { getGameAssets } from '../init/assets.js';
-import { getStage, setStage } from '../models/stage.model.js';
-import { clearStage } from '../models/stage.model.js';
+import { clearStage, getStage, setStage } from '../models/stage.model.js';
 
 export const gameStart = (uuid, payload) => {
   const { stages } = getGameAssets();
-
   clearStage(uuid);
   setStage(uuid, stages.data[0].id, payload.timestamp);
   console.log('Stage:', getStage(uuid));
@@ -33,14 +31,12 @@ export const gameEnd = (uuid, payload) => {
       stageEndTime = stages[index + 1].timestamp;
     }
     const stageDuration = (stageEndTime - stage.timestamp) / 1000; // 스테이지 지속 시간 (초 단위)
-
-    // 점수 증가 비율 설정 ( 예: 첫 번째 스테이지는 1점, 두 번째는 2점...)
-    const scoreMultiplier = index + 1; // 인덱스에 따라 점수 배율 증가
-    totalScore += stageDuration * scoreMultiplier; // 스테이지 지속 시간에 배율을 곱하여 점수 계산산
+    totalScore += stageDuration; // 1초당 1점
   });
 
   // 점수와 타임스탬프 검증 (예: 클라이언트가 보낸 총점과 계산된 총점 비교)
-  // 오차범위 5
+  // 오차범위 5 ( -5 ~ 5 )
+  // Math.abs 는 절대값을 뜻한다.
   if (Math.abs(score - totalScore) > 5) {
     return { status: 'fail', message: 'Score verification failed' };
   }

@@ -67,10 +67,9 @@ class ItemController {
     const collidedItem = this.items.find((item) => item.collideWith(sprite));
     if (collidedItem) {
       this.ctx.clearRect(collidedItem.x, collidedItem.y, collidedItem.width, collidedItem.height);
-      return {
-        itemId: collidedItem.id,
-      };
+      return { itemId: collidedItem.id }; // 충돌한 아이템 ID 반환
     }
+    return null;
   }
 
   reset() {

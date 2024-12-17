@@ -3,8 +3,7 @@ import Ground from './Ground.js';
 import CactiController from './CactiController.js';
 import Score from './Score.js';
 import ItemController from './ItemController.js';
-import './socet.js';
-import { sendEvent } from './socet.js';
+import { sendEvent } from './socket.js';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
