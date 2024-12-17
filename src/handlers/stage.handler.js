@@ -24,7 +24,8 @@ export const moveStageHandler = (userId, payload) => {
   // 1초당 1점, 100점이상 다음스테이지 이동, 오차범위 5
   // 클라이언트와 서버 간의 통신 지연시간을 고려해서 오차범위 설정
   // elapsedTime 은 100 이상 105 이하 일 경우만 통과
-  if (elapsedTime < 10 || elapsedTime > 10.5) {
+  // 점수가 일정점수를 넘어가면 다음 스테이지로 넘어가게 됨.
+  if (payload.score < elapsedTime) {
     return { status: 'fail', message: 'Invalid elapsed time' };
   }
 
@@ -36,5 +37,5 @@ export const moveStageHandler = (userId, payload) => {
 
   // 유저의 다음 스테이지 정보 업데이트 + 현재 시간
   setStage(userId, payload.targetStage, serverTime);
-  return { status: 'success' };
+  return { status: 'success', message: '다음스테이지로 이동합니다.' };
 };

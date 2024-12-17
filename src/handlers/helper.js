@@ -3,20 +3,20 @@ import { CLIENT_VERSION } from '../constants.js';
 import handlerMappings from './handlerMapping.js';
 import { createStage } from '../models/stage.model.js';
 
-export const handleConnection = (socket, uuid) => {
-  console.log(`New user connected!: ${uuid} with socket ID ${socket.id}`);
+export const handleConnection = (socket, userUUID) => {
+  console.log(`New user connected!: ${userUUID} with socket ID ${socket.id}`);
   console.log('Current users:', getUsers());
 
   // 스테이지 빈 배열 생성
-  createStage(uuid);
+  createStage(userUUID);
 
-  socket.emit('connection', { uuid });
+  socket.emit('connection', { uuid: userUUID });
 };
 
 export const handleDisconnect = (socket, uuid) => {
   removeUser(socket.id); // 사용자 삭제
   console.log(`User disconnected: ${socket.id}`);
-  console.log('Current users:', getUsers());
+  console.log('Current users:', getUsers(uuid));
 };
 
 export const handleEvent = (io, socket, data) => {
