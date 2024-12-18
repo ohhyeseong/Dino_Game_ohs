@@ -8,16 +8,10 @@ export const getStage = (uuid) => {
   return stages[uuid];
 };
 
-export const setStage = (uuid, id, timestamp) => {
-  // 초기화 확인 및 로그 추가
-  if (!stages[uuid]) {
-    console.log(`Initializing stages for user: ${uuid}`);
-    stages[uuid] = [];
-  }
-
-  return stages[uuid].push({ id, timestamp });
+export const setStage = async (uuid, id, timestamp) => {
+  return await stages[uuid].push({ id, timestamp });
 };
 
 export const clearStage = (uuid) => {
-  stages[uuid] = [];
+  return (stages[uuid] = []);
 };

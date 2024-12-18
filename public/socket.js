@@ -1,5 +1,4 @@
 import { CLIENT_VERSION } from './Constants.js';
-
 const socket = io('http://localhost:3000', {
   query: {
     clientVersion: CLIENT_VERSION,
@@ -16,6 +15,11 @@ socket.on('connection', (data) => {
   userId = data.uuid;
 });
 
+let gameAssetsData = null;
+socket.on('gameAssets', (data) => {
+  gameAssetsData = data;
+});
+
 const sendEvent = (handlerId, payload) => {
   socket.emit('event', {
     userId,
@@ -25,4 +29,4 @@ const sendEvent = (handlerId, payload) => {
   });
 };
 
-export { sendEvent };
+export { sendEvent, gameAssetsData };
