@@ -1,3 +1,4 @@
+import { gameAssetsData } from './Socket.js';
 import Item from './Item.js';
 
 class ItemController {
@@ -7,12 +8,13 @@ class ItemController {
   nextInterval = null;
   items = [];
 
-  constructor(ctx, itemImages, scaleRatio, speed) {
+  constructor(ctx, itemImages, scaleRatio, speed, score) {
     this.ctx = ctx;
     this.canvas = ctx.canvas;
     this.itemImages = itemImages;
     this.scaleRatio = scaleRatio;
     this.speed = speed;
+    this.score = score;
 
     this.setNextItemTime();
   }
@@ -26,19 +28,29 @@ class ItemController {
   }
 
   createItem() {
-    const index = this.getRandomNumber(0, this.itemImages.length - 1);
-    const itemInfo = this.itemImages[index];
+    // 현재 스테이지까지의 아이템만 필터링 진행
+    const availableItemIds = gameAssetsData.itemUnlocks.data
+      .filter((unlock) => unlock.stage_id <= this.score.currentStage) // 현재 스테이지보다 낮은 stage_id 필터링
+      .map((unlock) => unlock.item_id); // item_id만 추출
+
+    const availableItems = this.itemImages.filter((item) => availableItemIds.includes(item.id));
+
+    if (!availableItems.length) return;
+
+    const randomItem = availableItems[this.getRandomNumber(0, availableItems.length - 1)];
+    // const index = this.getRandomNumber(0, this.itemImages.length - 1);
+    // const itemInfo = this.itemImages[index];
     const x = this.canvas.width * 1.5;
-    const y = this.getRandomNumber(10, this.canvas.height - itemInfo.height);
+    const y = this.getRandomNumber(10, this.canvas.height - randomItem.height);
 
     const item = new Item(
       this.ctx,
-      itemInfo.id,
+      randomItem.id,
       x,
       y,
-      itemInfo.width,
-      itemInfo.height,
-      itemInfo.image,
+      randomItem.width,
+      randomItem.height,
+      randomItem.image,
     );
 
     this.items.push(item);

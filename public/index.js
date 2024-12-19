@@ -105,9 +105,8 @@ function createSprites() {
     };
   });
 
-  itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED);
-
   score = new Score(ctx, scaleRatio);
+  itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED, score);
 }
 
 function getScaleRatio() {

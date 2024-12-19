@@ -38,7 +38,14 @@ class Score {
 
   getItem(itemId) {
     // 아이템 획득시 점수 변화
-    this.score += 100;
+    //    이름     = 게임 에셋 데이타의 아이템파일 의 데이터의 찾아라 ? 아이템아이디랑 충동될때 사용되는 똑같은 아이템아이디를
+    const itemData = gameAssetsData.items.data.find((items) => items.id === itemId);
+    sendEvent(12, {
+      itemId: itemId,
+      currentStage: this.currentStage,
+    });
+    // 아이템 데이터는 파인드를 사용해서 배열안에 있는 객체의 아이디 값과 같은거를 객체로 뽑아서 반환한다. .score를 하면 해당 객체 값이 나온다..
+    this.score += itemData.score;
   }
 
   reset() {
@@ -64,6 +71,11 @@ class Score {
     this.ctx.font = `${fontSize}px serif`;
     this.ctx.fillStyle = '#525250';
 
+    //스테이지 표시 (왼쪽)
+    const stageX = 25 * this.scaleRatio;
+    this.ctx.fillText(`STAGE ${this.currentStage - 999}`, stageX, y); // 1000을 Stage 1로 표시하기 위해 999를 뺌
+
+    // 기존 점수 표시 ( 오른쪽 )
     const scoreX = this.canvas.width - 75 * this.scaleRatio;
     const highScoreX = scoreX - 125 * this.scaleRatio;
 
