@@ -1,10 +1,8 @@
 import { getGameAssets } from '../init/assets.js';
-import { getStage, setStage } from '../models/stage.model.js';
-import { clearStage } from '../models/stage.model.js';
+import { clearStage, getStage, setStage } from '../models/stage.model.js';
 
 export const gameStart = (uuid, payload) => {
   const { stages } = getGameAssets();
-
   clearStage(uuid);
   setStage(uuid, stages.data[0].id, payload.timestamp);
   console.log('Stage:', getStage(uuid));
@@ -37,7 +35,8 @@ export const gameEnd = (uuid, payload) => {
   });
 
   // 점수와 타임스탬프 검증 (예: 클라이언트가 보낸 총점과 계산된 총점 비교)
-  // 오차범위 5
+  // 오차범위 5 ( -5 ~ 5 )
+  // Math.abs 는 절대값을 뜻한다.
   if (Math.abs(score - totalScore) > 5) {
     return { status: 'fail', message: 'Score verification failed' };
   }
