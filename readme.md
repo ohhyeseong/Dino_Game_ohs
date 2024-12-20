@@ -29,22 +29,23 @@ Socket.io를 활용하여 유저 ID와 게임 데이터를 실시간으로 동�
 ---
 
 
-📂 프로젝트 구조
-📁 src
-├── 📄 app.js 
-├── 📄 constants.js 
-├── 📁 handlers 
-│ ├── 📄 game.handler.js
-│ ├── 📄 item.handler.js 
-│ ├── 📄 stage.handler.js 
-│ ├── 📄 handlerMapping.js 
-│ └── 📄 helper.js 
-├── 📁 init 
-│ ├── 📄 assets.js 
-│ └── 📄 socket.js 
-├── 📁 models 
-│ ├── 📄 stage.model.js 
-│ └── 📄 user.model.js 
+##📂 프로젝트 구조
+
+📁 **src**
+├── 📄 `app.js`
+├── 📄 `constants.js` 
+├── 📁 **handlers**
+│ ├── 📄 `game.handler.js`
+│ ├── 📄 `item.handler.js`
+│ ├── 📄 `stage.handler.js` 
+│ ├── 📄 `handlerMapping.js` 
+│ └── 📄 `helper.js` 
+├── 📁 **init** 
+│ ├── 📄 `assets.js` 
+│ └── 📄 `socket.js` 
+├── 📁 **models**
+│ ├── 📄 `stage.model.js` 
+│ └── 📄 `user.model.js` 
 
 ---
 
